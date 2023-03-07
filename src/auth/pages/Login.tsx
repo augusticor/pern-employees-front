@@ -15,18 +15,36 @@ export const Login = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor='inpemail'>Email</label>
-        <input type='email' name='email' id='inpemail' autoFocus onChange={handleChange} />
+    <div className='h-screen flex justify-center items-center bg-indigo-900'>
+      <main className='bg-slate-50 w-2/5 max-w-screen-sm h-3/5 flex flex-col rounded-lg px-14 gap-10'>
+        <h1 className='text-2xl mt-5'>Employees App Login</h1>
 
-        <label htmlFor='inppassword'>Password</label>
-        <input type='password' name='password' id='inppassword' onChange={handleChange} />
+        <form className='flex flex-col h-5/6 flex-wrap pt-10' onSubmit={handleSubmit}>
+          <label htmlFor='inpemail'>Email</label>
+          <input
+            className='text-lg border-b-2 border-blue-700'
+            type='email'
+            name='email'
+            id='inpemail'
+            placeholder='email@gmail.com'
+            autoFocus
+            onChange={handleChange}
+          />
 
-        <button>Login</button>
-      </form>
+          <label htmlFor='inppassword'>Password</label>
+          <input
+            className='text-lg border-b-2 border-blue-700 focus:border-0 focus:border-none'
+            type='password'
+            name='password'
+            id='inppassword'
+            onChange={handleChange}
+          />
 
-      <Link href='/auth/register'>No account yet ? Create one</Link>
-    </>
+          <button className='border-2 border-black mt-5'>Login</button>
+        </form>
+
+        <Link href='/auth/register'>No account yet ? Create one</Link>
+      </main>
+    </div>
   );
 };
