@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'wouter';
 import { LoginUser } from '../../types';
-import { GiEyelashes, GiSunkenEye } from 'react-icons/gi';
+import { PasswordInput } from '../components/PasswordInput';
 
 export const Login = () => {
-  const [hidePassword, setHidePassword] = useState(true);
+  const inputsClasses =
+    'text-lg border-b-2 mt-3 outline-none border-lime-100 focus:border-lime-300 hover:border-lime-200';
+
   const [formValues, setFormValues] = useState<LoginUser>({ email: '', password: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +26,7 @@ export const Login = () => {
         <form className='flex flex-col pt-10 w-full' onSubmit={handleSubmit}>
           <label htmlFor='inpemail'>Email</label>
           <input
-            className='text-lg border-b-2 mt-3 outline-none border-lime-100 focus:border-lime-300 hover:border-lime-200'
+            className={`${inputsClasses}`}
             type='email'
             name='email'
             id='inpemail'
@@ -33,41 +35,11 @@ export const Login = () => {
             onChange={handleChange}
           />
 
-          <label htmlFor='inppassword' className='mt-5'>
-            Password
-          </label>
-          <div className='grid grid-cols-2 items-center gap-3'>
-            {hidePassword ? (
-              <input
-                className='text-lg border-b-2 mt-3 outline-none border-lime-100 focus:border-lime-300 hover:border-lime-200'
-                type='password'
-                name='password'
-                id='inppassword'
-                placeholder='****************'
-                onChange={handleChange}
-              />
-            ) : (
-              <input
-                className='text-lg border-b-2 mt-3 outline-none border-lime-100 focus:border-lime-300 hover:border-lime-200'
-                type='text'
-                name='password'
-                id='inppassword'
-                onChange={handleChange}
-              />
-            )}
-
-            <button
-              type='button'
-              className='text-xl justify-self-center'
-              onClick={() => setHidePassword(!hidePassword)}
-            >
-              {hidePassword ? (
-                <GiSunkenEye className='hover:fill-lime-900' />
-              ) : (
-                <GiEyelashes className='hover:fill-lime-900' />
-              )}
-            </button>
-          </div>
+          <PasswordInput
+            inputClasses={inputsClasses}
+            svgFillColor='hover:fill-lime-900'
+            handleChange={handleChange}
+          />
 
           <button className='text-lg border-2 bg-lime-400 mt-10 w-24 h-9 self-center border-green-700 font-medium hover:bg-lime-500 hover:border-lime-900 hover:font-bold'>
             Login

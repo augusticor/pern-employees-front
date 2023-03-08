@@ -10,7 +10,7 @@ export const AppRouter = () => {
       <Route path='/auth/register' component={Register} />
 
       <Route>
-        <Redirect to='/auth/login' />
+        <Redirect to='/auth/register' />
       </Route>
     </Switch>
   );
