@@ -1,17 +1,18 @@
-import { Redirect, Route, Switch } from 'wouter';
-import { Login } from '../auth/pages/Login';
-import { Register } from '../auth/pages/Register';
+import { AuthRoutes } from './AuthRoutes';
+import { EmployeeRoutes } from './EmployeeRoutes';
+import { ManagerRoutes } from './ManagerRoutes';
 
 export const AppRouter = () => {
-  return (
-    <Switch>
-      <Route path='/auth/login' component={Login} />
+  const authStatus: string = 'not-authenticated';
+  const role: boolean = false;
 
-      <Route path='/auth/register' component={Register} />
+  if (authStatus === 'checking') return <h1>Loading ...</h1>;
 
-      <Route>
-        <Redirect to='/auth/register' />
-      </Route>
-    </Switch>
+  return authStatus === 'not-authenticated' ? (
+    <AuthRoutes />
+  ) : role ? (
+    <ManagerRoutes />
+  ) : (
+    <EmployeeRoutes />
   );
 };
