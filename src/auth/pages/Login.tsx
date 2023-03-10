@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'wouter';
+import { useAuthStore } from '../../store/useAuthStore';
 import { LoginUser } from '../../types';
 import { PasswordInput } from '../components/PasswordInput';
 
 export const Login = () => {
+  const login = useAuthStore((state) => state.login);
+
   const inputsClasses =
     'text-lg border-b-2 mt-3 outline-none border-lime-100 focus:border-lime-300 hover:border-lime-200';
 
@@ -15,7 +18,7 @@ export const Login = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formValues);
+    login(formValues);
   };
 
   return (

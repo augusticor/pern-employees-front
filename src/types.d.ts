@@ -1,20 +1,18 @@
 // Types:
-export type LoginUser = {
+type LoginUser = {
   email: string;
   password: string;
-};
-
-export type RegisterUser = {
-  firstName: string;
-  lastName?: string;
-  email: string;
-  password: string;
-  role: boolean;
 };
 
 export type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 
 // Interfaces:
-interface User extends RegisterUser {
+interface RegisterUser extends LoginUser {
+  firstName: string;
+  lastName?: string;
+  role: boolean;
+}
+
+interface User extends Omit<RegisterUser, 'password'> {
   readonly id: number;
 }
