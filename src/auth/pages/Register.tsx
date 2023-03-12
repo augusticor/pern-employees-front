@@ -71,7 +71,7 @@ export const Register = () => {
             className='grid grid-rows-2 grid-cols-3 mt-4 items-center justify-items-start sm:justify-items-center md:place-items-center md:grid-rows-1 md:grid-cols-4'
           >
             <input
-              className='text-green-600 w-5 h-5 peer/employee'
+              className='w-5 h-5 peer/employee'
               type='radio'
               name='role'
               id='chbxemployee'
@@ -87,7 +87,7 @@ export const Register = () => {
             </label>
 
             <input
-              className='text-green-600 w-5 h-5 peer/manager'
+              className='w-5 h-5 peer/manager'
               type='radio'
               name='role'
               id='chbxmanager'
