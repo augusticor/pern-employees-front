@@ -4,7 +4,9 @@ type LoginUser = {
   password: string;
 };
 
-export type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
+type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
+
+type APIError = { ok: false; msg: string };
 
 // Interfaces:
 interface RegisterUser extends LoginUser {
@@ -15,4 +17,13 @@ interface RegisterUser extends LoginUser {
 
 interface User extends Omit<RegisterUser, 'password'> {
   readonly id: number;
+  managerId: number | null;
 }
+
+interface AuthUserSuccessResponse {
+  ok: true;
+  employee: User;
+}
+
+// Exports
+export { LoginUser, AuthStatus, RegisterUser, User, APIError, AuthUserSuccessResponse };
