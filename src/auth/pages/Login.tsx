@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'wouter';
 import { useAuthStore } from '../../store/useAuthStore';
 import { LoginUser } from '../../types';
 import { PasswordInput } from '../components/PasswordInput';
+import { toast } from 'sonner';
 
 export const Login = () => {
   const login = useAuthStore((state) => state.login);
+  const errorMessage = useAuthStore((state) => state.errorMessage);
 
   const inputsClasses =
     'text-lg border-b-2 mt-3 outline-none border-lime-100 focus:border-lime-300 hover:border-lime-200';
@@ -20,6 +22,10 @@ export const Login = () => {
     e.preventDefault();
     login(formValues);
   };
+
+  useEffect(() => {
+    if (errorMessage) toast.error(errorMessage);
+  }, [errorMessage]);
 
   return (
     <div className='h-screen flex justify-center items-center bg-lime-600'>
