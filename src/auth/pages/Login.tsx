@@ -1,31 +1,48 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'wouter';
 import { useAuthStore } from '../../store/useAuthStore';
-import { LoginUser } from '../../types';
+import { loginFormValidationsObjectType, LoginUser } from '../../types';
 import { PasswordInput } from '../components/PasswordInput';
 import { toast } from 'sonner';
+import { useLoginForm } from '../../hooks';
+
+// Regex to validate
+const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const passwordRegex = /^\w{5,60}$/;
+
+const loginFormFields: LoginUser = { email: '', password: '' };
+
+const loginFormValidations: loginFormValidationsObjectType = {
+  email: [(email) => emailRegex.test(email), 'Email is not valid'],
+  password: [(pasword) => passwordRegex.test(pasword), '5 or more letters and/or numbers'],
+};
 
 export const Login = () => {
   const login = useAuthStore((state) => state.login);
   const errorMessage = useAuthStore((state) => state.errorMessage);
 
-  const inputsClasses =
-    'text-lg border-b-2 mt-3 outline-none border-lime-100 focus:border-lime-300 hover:border-lime-200';
+  const { onInputChange, formState, isFormValid, formValidation } = useLoginForm(
+    loginFormFields,
+    loginFormValidations
+  );
 
-  const [formValues, setFormValues] = useState<LoginUser>({ email: '', password: '' });
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormValues({ ...formValues, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => onInputChange(e);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login(formValues);
+    setIsFormSubmitted(true);
+    if (!isFormValid) return;
+    login(formState);
   };
 
   useEffect(() => {
     if (errorMessage) toast.error(errorMessage);
   }, [errorMessage]);
+
+  const inputsClasses =
+    'text-lg border-b-2 mt-3 outline-none border-lime-100 focus:border-lime-300 hover:border-lime-200';
 
   return (
     <div className='h-screen flex justify-center items-center bg-lime-600'>
@@ -43,12 +60,26 @@ export const Login = () => {
             autoFocus
             onChange={handleChange}
           />
+          <p
+            className={`text-red-400 text-sm mt-1 ${
+              isFormSubmitted && formValidation.emailValid ? 'visible' : 'invisible'
+            }`}
+          >
+            {formValidation.emailValid || 'i am invisible'}
+          </p>
 
           <PasswordInput
             inputClasses={inputsClasses}
             svgFillColor='hover:fill-lime-900'
             handleChange={handleChange}
           />
+          <p
+            className={`text-red-400 text-sm mt-1 ${
+              isFormSubmitted && formValidation.passwordValid ? 'visible' : 'invisible'
+            }`}
+          >
+            {formValidation.passwordValid || 'i am invisible'}
+          </p>
 
           <button className='text-lg border-2 bg-lime-400 mt-10 w-24 h-9 self-center border-green-700 font-medium hover:bg-lime-500 hover:border-lime-900 hover:font-bold'>
             Login

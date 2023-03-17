@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
-import { loginService } from '../services/auth';
-import { AuthStatus, LoginUser, User } from '../types';
+import { loginService, registerService } from '../services/auth';
+import { AuthStatus, LoginUser, RegisterUser, User } from '../types';
 
 interface AuthProps {
   authStatus: AuthStatus;
@@ -11,6 +11,7 @@ interface AuthProps {
 
 interface AuthActions {
   login: (loginInfo: LoginUser) => Promise<void>;
+  register: (registerInfo: RegisterUser) => Promise<void>;
 }
 
 const initialState: AuthProps = {
@@ -40,6 +41,22 @@ export const useAuthStore = create<AuthProps & AuthActions>()(
             });
           } else {
             set({ authStatus: 'not-authenticated', errorMessage: loginResponse.msg });
+          }
+        },
+
+        register: async (registerInfo) => {
+          set({ authStatus: 'checking' });
+
+          const registerResponse = await registerService(registerInfo);
+
+          if (registerResponse.ok) {
+            set({
+              authStatus: 'authenticated',
+              errorMessage: null,
+              user: registerResponse.employee,
+            });
+          } else {
+            set({ authStatus: 'not-authenticated', errorMessage: registerResponse.msg });
           }
         },
       };

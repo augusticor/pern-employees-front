@@ -17,27 +17,18 @@ export const PasswordInput: React.FC<Props> = ({
   return (
     <>
       <label htmlFor='inppassword' className='mt-5'>
-        Password
+        Password (5+ alphanumeric)
       </label>
       <div className='grid grid-cols-2 items-center gap-3'>
-        {hidePassword ? (
-          <input
-            className={`${inputClasses}`}
-            type='password'
-            name='password'
-            id='inppassword'
-            placeholder='****************'
-            onChange={handleChange}
-          />
-        ) : (
-          <input
-            className={`${inputClasses}`}
-            type='text'
-            name='password'
-            id='inppassword'
-            onChange={handleChange}
-          />
-        )}
+        <input
+          className={`${inputClasses}`}
+          type={hidePassword ? 'password' : 'text'}
+          name='password'
+          id='inppassword'
+          placeholder='****************'
+          title='5 or more letters and/or numbers'
+          onChange={handleChange}
+        />
 
         <button
           type='button'

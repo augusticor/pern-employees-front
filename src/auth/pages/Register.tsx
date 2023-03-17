@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 import { Link } from 'wouter';
+import { useAuthStore } from '../../store/useAuthStore';
 import { RegisterUser } from '../../types';
 import { PasswordInput } from '../components/PasswordInput';
 
 export const Register = () => {
+  const register = useAuthStore((state) => state.register);
+  const errorMessage = useAuthStore((state) => state.errorMessage);
+
   const inputClasses =
     'text-lg outline-1 outline-cyan-700 border rounded border-slate-200 hover:border-cyan-600 pl-2 outline-offset-2';
 
@@ -21,8 +26,12 @@ export const Register = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formValues);
+    register({ ...formValues });
   };
+
+  useEffect(() => {
+    if (errorMessage) toast.error(errorMessage);
+  }, [errorMessage]);
 
   return (
     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 bg-gray-800 h-screen'>
@@ -36,6 +45,7 @@ export const Register = () => {
             id='inpfirstname'
             placeholder='Juanito'
             autoFocus
+            required
             onChange={handleChange}
           />
 
@@ -56,6 +66,7 @@ export const Register = () => {
             name='email'
             id='inpemail'
             placeholder='juanito@gmail.com'
+            required
             onChange={handleChange}
           />
 
