@@ -4,7 +4,7 @@ import { useAuthStore } from '../../store/useAuthStore';
 import { loginFormValidationsObjectType, LoginUser } from '../../types';
 import { PasswordInput } from '../components/PasswordInput';
 import { toast } from 'sonner';
-import { useLoginForm } from '../../hooks';
+import { useForm } from '../../hooks/genericUseForm';
 
 // Regex to validate
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -21,10 +21,12 @@ export const Login = () => {
   const login = useAuthStore((state) => state.login);
   const errorMessage = useAuthStore((state) => state.errorMessage);
 
-  const { onInputChange, formState, isFormValid, formValidation } = useLoginForm(
+  const { onInputChange, formState, isFormValid, checkedFormFields } = useForm<LoginUser>(
     loginFormFields,
     loginFormValidations
   );
+
+  const { email: emailValid, password: passwordValid } = checkedFormFields;
 
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
@@ -62,10 +64,10 @@ export const Login = () => {
           />
           <p
             className={`text-red-400 text-sm mt-1 ${
-              isFormSubmitted && formValidation.emailValid ? 'visible' : 'invisible'
+              isFormSubmitted && emailValid ? 'visible' : 'invisible'
             }`}
           >
-            {formValidation.emailValid || 'i am invisible'}
+            {emailValid || 'i am invisible'}
           </p>
 
           <PasswordInput
@@ -75,10 +77,10 @@ export const Login = () => {
           />
           <p
             className={`text-red-400 text-sm mt-1 ${
-              isFormSubmitted && formValidation.passwordValid ? 'visible' : 'invisible'
+              isFormSubmitted && passwordValid ? 'visible' : 'invisible'
             }`}
           >
-            {formValidation.passwordValid || 'i am invisible'}
+            {passwordValid || 'i am invisible'}
           </p>
 
           <button className='text-lg border-2 bg-lime-400 mt-10 w-24 h-9 self-center border-green-700 font-medium hover:bg-lime-500 hover:border-lime-900 hover:font-bold'>

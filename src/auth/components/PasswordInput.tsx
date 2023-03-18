@@ -18,6 +18,13 @@ export const PasswordInput: React.FC<Props> = ({
     <>
       <label htmlFor='inppassword' className='mt-5'>
         Password (5+ alphanumeric)
+        <abbr
+          title='Required, 5 or more letters and/or numbers'
+          aria-required='true'
+          className='ml-2'
+        >
+          *
+        </abbr>
       </label>
       <div className='grid grid-cols-2 items-center gap-3'>
         <input
