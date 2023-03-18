@@ -4,7 +4,7 @@ import { Link } from 'wouter';
 import { useForm } from '../../hooks/genericUseForm';
 import { useAuthStore } from '../../store/useAuthStore';
 import { registerFormValidationsObjectType, RegisterUser } from '../../types';
-import { PasswordInput } from '../components/PasswordInput';
+import { FieldErrorParagraph, PasswordInput } from '../components';
 
 // Regex to validate
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -22,13 +22,13 @@ const registerFormValidations: registerFormValidationsObjectType = {
   firstName: [
     (firstName) =>
       typeof firstName === 'string' && firstName.length > 1 && firstName.length < 51,
-    'Firstname is too short',
+    'Firstname is not valid',
   ],
   lastName: [
     (lastName = 'auxval') =>
       typeof lastName === 'string' &&
       (lastName.length === 0 || (lastName.length > 1 && lastName.length < 51)),
-    'Lastname is too short',
+    'Lastname is not valid',
   ],
   email: [
     (email) => typeof email === 'string' && emailRegex.test(email),
@@ -94,13 +94,11 @@ export const Register = () => {
             autoFocus
             onChange={handleChange}
           />
-          <p
-            className={`text-pink-400 text-sm mt-1 ${
-              isFormSubmitted && firstNameValid ? 'visible' : 'invisible'
-            }`}
-          >
-            {firstNameValid || 'i am invisible'}
-          </p>
+          <FieldErrorParagraph
+            toggle={(isFormSubmitted && firstNameValid) as boolean}
+            text={firstNameValid as string}
+            color='text-pink-400'
+          />
 
           <label htmlFor='inplastname'>Last Name</label>
           <input
@@ -111,13 +109,11 @@ export const Register = () => {
             placeholder='Barela'
             onChange={handleChange}
           />
-          <p
-            className={`text-pink-400 text-sm mt-1 ${
-              isFormSubmitted && lastNameValid ? 'visible' : 'invisible'
-            }`}
-          >
-            {lastNameValid || 'i am invisible'}
-          </p>
+          <FieldErrorParagraph
+            toggle={(isFormSubmitted && lastNameValid) as boolean}
+            text={lastNameValid as string}
+            color='text-pink-400'
+          />
 
           <label htmlFor='inpemail'>
             Email
@@ -133,30 +129,26 @@ export const Register = () => {
             placeholder='juanito@gmail.com'
             onChange={handleChange}
           />
-          <p
-            className={`text-pink-400 text-sm mt-1 ${
-              isFormSubmitted && emailValid ? 'visible' : 'invisible'
-            }`}
-          >
-            {emailValid || 'i am invisible'}
-          </p>
+          <FieldErrorParagraph
+            toggle={(isFormSubmitted && emailValid) as boolean}
+            text={emailValid as string}
+            color='text-pink-400'
+          />
 
           <PasswordInput
             inputClasses={inputClasses}
             svgFillColor='hover:fill-cyan-900'
             handleChange={handleChange}
           />
-          <p
-            className={`text-pink-400 text-sm mt-1 ${
-              isFormSubmitted && passwordValid ? 'visible' : 'invisible'
-            }`}
-          >
-            {passwordValid || 'i am invisible'}
-          </p>
+          <FieldErrorParagraph
+            toggle={(isFormSubmitted && passwordValid) as boolean}
+            text={passwordValid as string}
+            color='text-pink-400'
+          />
 
           <label htmlFor='roles'>
             Select a role
-            <abbr title='Managers can hire' className='ml-2'>
+            <abbr title='Only managers can hire' className='ml-2'>
               *
             </abbr>
           </label>

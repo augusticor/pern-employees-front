@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'wouter';
 import { useAuthStore } from '../../store/useAuthStore';
 import { loginFormValidationsObjectType, LoginUser } from '../../types';
-import { PasswordInput } from '../components/PasswordInput';
+import { FieldErrorParagraph, PasswordInput } from '../components';
 import { toast } from 'sonner';
 import { useForm } from '../../hooks/genericUseForm';
 
@@ -48,7 +48,7 @@ export const Login = () => {
 
   return (
     <div className='h-screen flex justify-center items-center bg-lime-600'>
-      <main className='bg-white w-1/3 max-w-lg h-max flex flex-col rounded-lg px-14 items-center'>
+      <main className='bg-white w-full md:2/3 lg:w-1/3 max-w-lg h-max flex flex-col rounded-lg px-14 items-center'>
         <h1 className='text-2xl mt-3'>Employees App - Login</h1>
 
         <form className='flex flex-col pt-10 w-full' onSubmit={handleSubmit}>
@@ -62,26 +62,22 @@ export const Login = () => {
             autoFocus
             onChange={handleChange}
           />
-          <p
-            className={`text-red-400 text-sm mt-1 ${
-              isFormSubmitted && emailValid ? 'visible' : 'invisible'
-            }`}
-          >
-            {emailValid || 'i am invisible'}
-          </p>
+          <FieldErrorParagraph
+            toggle={(isFormSubmitted && emailValid) as boolean}
+            text={emailValid as string}
+            color='text-red-400'
+          />
 
           <PasswordInput
             inputClasses={inputsClasses}
             svgFillColor='hover:fill-lime-900'
             handleChange={handleChange}
           />
-          <p
-            className={`text-red-400 text-sm mt-1 ${
-              isFormSubmitted && passwordValid ? 'visible' : 'invisible'
-            }`}
-          >
-            {passwordValid || 'i am invisible'}
-          </p>
+          <FieldErrorParagraph
+            toggle={(isFormSubmitted && passwordValid) as boolean}
+            text={passwordValid as string}
+            color='text-red-400'
+          />
 
           <button className='text-lg border-2 bg-lime-400 mt-10 w-24 h-9 self-center border-green-700 font-medium hover:bg-lime-500 hover:border-lime-900 hover:font-bold'>
             Login

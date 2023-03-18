@@ -12,7 +12,8 @@ export const loginService = async (
     return { ...data };
   } catch (error) {
     if (isAxiosError(error)) {
-      if (error.code === 'ERR_NETWORK') return { ok: false, msg: 'Oops. Try again later' };
+      if (error.code === 'ERR_NETWORK')
+        return { ok: false, msg: 'Connection error. Try again later' };
 
       const responseError: APIError = error.response?.data;
 
@@ -37,7 +38,7 @@ export const registerService = async (
 
     if (isAxiosError(error)) {
       if (error.code === 'ERR_NETWORK')
-        return { ok: false, msg: 'Are you connected ?. Try again later' };
+        return { ok: false, msg: 'Connection error. Try again later' };
 
       const responseError: APIError = error.response?.data;
 
