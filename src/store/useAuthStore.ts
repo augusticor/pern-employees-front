@@ -15,7 +15,7 @@ interface AuthActions {
 }
 
 const initialState: AuthProps = {
-  authStatus: 'not-authenticated',
+  authStatus: 'authenticated',
   errorMessage: null,
   user: null,
 };

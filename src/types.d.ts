@@ -31,7 +31,7 @@ type registerFormValidationsObjectType = Record<keysOfRegister, registerFormVali
 interface RegisterUser extends LoginUser {
   firstName: string;
   lastName?: string;
-  role: boolean;
+  role: boolean = false;
 }
 
 interface User extends Omit<RegisterUser, 'password'> {

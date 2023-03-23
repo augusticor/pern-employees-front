@@ -1,3 +1,4 @@
+import { Navbar } from '../employees/components/Navbar';
 import { useAuthStore } from '../store/useAuthStore';
 import { AuthRoutes } from './AuthRoutes';
 import { EmployeeRoutes } from './EmployeeRoutes';
@@ -6,7 +7,7 @@ import { Loading } from './pages/Loading';
 
 export const AppRouter = () => {
   const authStatus = useAuthStore((state) => state.authStatus);
-  const role: boolean = false;
+  const role = useAuthStore((state) => state.user?.role);
 
   if (authStatus === 'checking') return <Loading />;
 
