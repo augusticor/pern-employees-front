@@ -5,18 +5,20 @@ interface Props {
   inputClasses: string;
   svgFillColor: string;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  inputId?: string;
 }
 
 export const PasswordInput: React.FC<Props> = ({
   inputClasses,
   svgFillColor,
   handleChange,
+  inputId = 'inppassword',
 }) => {
   const [hidePassword, setHidePassword] = useState(true);
 
   return (
     <>
-      <label htmlFor='inppassword' className='mt-5'>
+      <label htmlFor={inputId} className='mt-5'>
         Password (5+ alphanumeric)
         <abbr
           title='Required, 5 or more letters and/or numbers'
@@ -31,7 +33,7 @@ export const PasswordInput: React.FC<Props> = ({
           className={`${inputClasses}`}
           type={hidePassword ? 'password' : 'text'}
           name='password'
-          id='inppassword'
+          id={inputId}
           placeholder='****************'
           title='5 or more letters and/or numbers'
           onChange={handleChange}
