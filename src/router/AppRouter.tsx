@@ -1,4 +1,3 @@
-import { Navbar } from '../employees/components/Navbar';
 import { useAuthStore } from '../store/useAuthStore';
 import { AuthRoutes } from './AuthRoutes';
 import { EmployeeRoutes } from './EmployeeRoutes';
