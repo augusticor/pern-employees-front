@@ -7,7 +7,7 @@ export const EmployeeRoutes = () => {
   return (
     <Switch>
       <Route path='/employee/:rest*'>
-        <div className='grid grid-rows-[6%_94%] h-screen'>
+        <div className='grid grid-rows-[6%_94%] grid-cols-1 h-screen'>
           <Navbar />
 
           <Route path='/employee/profile' component={Profile} />

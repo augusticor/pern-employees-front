@@ -10,10 +10,10 @@ export const UpdatePassword = () => {
 
   return (
     <form className='flex flex-col' onSubmit={handleUpdatePassword}>
-      <div className='grid grid-cols-[1fr_1fr] grid-rows-2 gap-x-9'>
+      <div className='grid sm:grid-cols-[1fr_1fr] sm:grid-rows-2 items-center gap-y-2 md:gap-x-2'>
         <label>Old Password</label>
 
-        <label>New Password</label>
+        <label className='hidden md:block'>New Password</label>
 
         <div>
           <PasswordInput
@@ -23,6 +23,8 @@ export const UpdatePassword = () => {
             handleChange={() => {}}
           />
         </div>
+
+        <label className='block md:hidden'>New Password</label>
 
         <div>
           <PasswordInput

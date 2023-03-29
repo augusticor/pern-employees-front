@@ -13,8 +13,8 @@ export const Profile = () => {
     'text-lg outline-1 outline-sky-700 border rounded border-slate-200 hover:border-sky-600 pl-2 outline-offset-2';
 
   return (
-    <div className='bg-neutral-100 flex justify-center p-10'>
-      <main className='flex flex-col gap-y-12 bg-amber-50 rounded-lg shadow-md p-10 overflow-y-scroll'>
+    <div className='bg-neutral-100 flex justify-center md:p-10'>
+      <main className='flex flex-col gap-y-12 bg-amber-50 md:rounded-lg md:shadow-md p-10 overflow-y-scroll'>
         <section className='grid grid-cols-[1fr_1fr] items-center justify-items-center'>
           {user?.role ? <FcBusinessman size={100} /> : <FcManager size={100} />}
 
