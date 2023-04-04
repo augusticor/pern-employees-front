@@ -20,13 +20,13 @@ git clone https://github.com/augusticor/pern-employees-front.git
 
 2. Install dependencies
 
-    2.1 Development or testing mode
+    - Development or testing mode
 
     ```
     npm install
     ```
-
-    2.2 Production mode
+    
+    - Production mode
     
     ```
     npm ci --omit=dev
@@ -36,19 +36,19 @@ git clone https://github.com/augusticor/pern-employees-front.git
 
 4. Run the project
 
-    4.1 Development mode
+    - Development mode
 
     ```
     npm run dev
     ```
 
-    4.2 Testing mode
+    - Testing mode
 
     ```
     npm run test
     ```
 
-    4.3 Production mode
+    - Production mode
 
     ```
     npm run build
